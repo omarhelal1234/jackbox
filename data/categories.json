@@ -3,7 +3,7 @@
     "id": 1,
     "prompt": "Things you see in a classroom",
     "answers": [
-      { "rank": 1, "text": "desk", "synonyms": ["desks", "table", "tables"] },
+      { "rank": 1, "text": "desk", "synonyms": ["desks", "table", "tables","disk"] },
       { "rank": 2, "text": "teacher", "synonyms": ["teachers", "professor", "instructor"] },
       { "rank": 3, "text": "whiteboard", "synonyms": ["board", "blackboard", "chalkboard"] },
       { "rank": 4, "text": "chair", "synonyms": ["chairs", "seat", "seats"] },
