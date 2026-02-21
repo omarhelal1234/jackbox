@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Top Match – Player</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+<div class="player-bg" id="app">
+
+  <!-- header (always visible once connected) -->
+  <div class="player-header hidden" id="player-header">
+    <span id="header-name"></span>
+    <span class="code-tag" id="header-code"></span>
+  </div>
+
+  <!-- ═══ CONNECTING ═══ -->
+  <div class="player-body" id="screen-connecting">
+    <div class="pulse" style="font-size:2rem;margin-bottom:1rem;">🔌</div>
+    <p>Connecting…</p>
+  </div>
+
+  <!-- ═══ WAITING IN LOBBY ═══ -->
+  <div class="player-body hidden" id="screen-waiting">
+    <div style="font-size:3rem;margin-bottom:1rem;">✅</div>
+    <h2>You're in!</h2>
+    <p class="text-dim mt-1">Waiting for the host to start the game…</p>
+  </div>
+
+  <!-- ═══ GAME STARTING ═══ -->
+  <div class="player-body hidden" id="screen-game-starting">
+    <div class="round-intro-text" style="font-size:2.5rem;">GET READY!</div>
+  </div>
+
+  <!-- ═══ ANSWER ═══ -->
+  <div class="player-body hidden" id="screen-answer">
+    <p class="player-round-info" id="p-round"></p>
+    <p class="player-category" id="p-category"></p>
+    <div class="player-timer" id="p-timer">--</div>
+    <form class="answer-form" id="answer-form" autocomplete="off">
+      <input class="answer-input" id="answer-input" type="text"
+             placeholder="Type your answer…" maxlength="50" required />
+      <button type="submit" class="btn btn-secondary btn-block btn-lg" id="submit-btn">SUBMIT</button>
+    </form>
+    <p class="text-dim mt-1" id="answer-error" style="color:var(--danger);display:none;"></p>
+  </div>
+
+  <!-- ═══ SUBMITTED ═══ -->
+  <div class="player-body hidden" id="screen-submitted">
+    <div class="check-icon">✓</div>
+    <h2>Locked In!</h2>
+    <p class="text-dim mt-1" id="submitted-answer"></p>
+  </div>
+
+  <!-- ═══ HILO ═══ -->
+  <div class="player-body hidden" id="screen-hilo">
+    <p class="player-round-info">Will your answer be…</p>
+    <p class="player-category">in the TOP 5 or BOTTOM 5?</p>
+    <div class="player-timer" id="hilo-timer">--</div>
+    <div class="hilo-buttons">
+      <button class="hilo-btn hi" id="btn-hi">⬆️<br/>HI</button>
+      <button class="hilo-btn lo" id="btn-lo">⬇️<br/>LO</button>
+    </div>
+  </div>
+
+  <!-- ═══ HILO SUBMITTED ═══ -->
+  <div class="player-body hidden" id="screen-hilo-done">
+    <div class="check-icon">✓</div>
+    <h2 id="hilo-choice-text">Locked In!</h2>
+    <p class="text-dim mt-1">Waiting for reveal…</p>
+  </div>
+
+  <!-- ═══ ROUND RESULTS ═══ -->
+  <div class="player-body hidden" id="screen-results">
+    <div class="result-card" id="result-card">
+      <p class="text-dim">Your answer</p>
+      <p class="result-answer" id="res-answer">—</p>
+      <p class="result-rank" id="res-rank"></p>
+      <p class="result-points" id="res-points">0</p>
+      <p class="result-hilo" id="res-hilo"></p>
+      <hr style="border-color:rgba(255,255,255,.1);margin:.8rem 0" />
+      <p class="result-total" id="res-total"></p>
+    </div>
+  </div>
+
+  <!-- ═══ GAME OVER ═══ -->
+  <div class="player-body hidden" id="screen-final">
+    <div class="final-place" id="final-place">🏆</div>
+    <h2 class="mt-1" id="final-place-text"></h2>
+    <p class="final-score" id="final-score"></p>
+    <p class="text-dim mt-2">Look at the big screen for full results!</p>
+  </div>
+
+  <!-- ═══ KICKED ═══ -->
+  <div class="player-body hidden" id="screen-kicked">
+    <div style="font-size:3rem;margin-bottom:1rem;">🚫</div>
+    <h2>You were removed</h2>
+    <p class="text-dim mt-1">The host removed you from the game.</p>
+    <a href="/" class="btn btn-outline mt-3">BACK TO LOBBY</a>
+  </div>
+
+  <!-- ═══ HOST DISCONNECTED ═══ -->
+  <div class="player-body hidden" id="screen-host-dc">
+    <div style="font-size:3rem;margin-bottom:1rem;">📡</div>
+    <h2>Host disconnected</h2>
+    <p class="text-dim mt-1">The host has left the game.</p>
+    <a href="/" class="btn btn-outline mt-3">BACK</a>
+  </div>
+
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/audio.js"></script>
+<script src="/js/player.js"></script>
+</body>
+</html>

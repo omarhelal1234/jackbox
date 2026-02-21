@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Top Match – Host Screen</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+<div class="host-bg" id="app">
+
+  <!-- ═══ LOBBY ═══ -->
+  <div class="screen active" id="screen-lobby">
+    <p class="join-url" id="join-url"></p>
+    <p class="text-dim mb-1">Enter this code to join:</p>
+    <div class="room-code-display" id="room-code">····</div>
+
+    <div id="player-list" class="player-list"></div>
+
+    <p class="text-dim mt-2" id="player-count">Waiting for players…</p>
+
+    <!-- settings -->
+    <div class="card mt-3" style="max-width:440px;width:100%">
+      <div class="settings-row">
+        <label>Rounds</label>
+        <select id="set-rounds">
+          <option value="3">3</option><option value="4">4</option><option value="5">5</option>
+          <option value="6" selected>6</option><option value="7">7</option><option value="8">8</option>
+          <option value="9">9</option><option value="10">10</option>
+        </select>
+      </div>
+      <div class="settings-row">
+        <label>Answer time</label>
+        <select id="set-time">
+          <option value="10">10 s</option><option value="15">15 s</option>
+          <option value="20" selected>20 s</option><option value="30">30 s</option>
+        </select>
+      </div>
+      <div class="settings-row">
+        <label class="toggle"><input type="checkbox" id="set-hilo" checked /> Hi / Lo bonus round</label>
+      </div>
+      <div class="settings-row">
+        <label class="toggle"><input type="checkbox" id="set-filter" checked /> Family-friendly filter</label>
+      </div>
+    </div>
+
+    <div class="host-controls">
+      <button class="btn btn-gold btn-lg" id="btn-start" disabled>START GAME</button>
+    </div>
+  </div>
+
+  <!-- ═══ ROUND INTRO ═══ -->
+  <div class="screen" id="screen-round-intro">
+    <div class="round-intro-text" id="round-intro-text"></div>
+  </div>
+
+  <!-- ═══ CATEGORY + TIMER ═══ -->
+  <div class="screen" id="screen-category">
+    <p class="text-dim mb-1" id="round-label"></p>
+    <div class="category-display" id="category-text"></div>
+    <div class="timer-ring" id="host-timer">--</div>
+    <p class="submission-counter" id="submission-counter"></p>
+  </div>
+
+  <!-- ═══ HILO WAIT ═══ -->
+  <div class="screen" id="screen-hilo-wait">
+    <p class="text-dim mb-1" id="hilo-round-label"></p>
+    <div class="category-display" style="font-size:2rem;">⬆️ HI or LO? ⬇️</div>
+    <p class="mt-2 text-dim">Players are predicting…</p>
+    <div class="timer-ring" id="hilo-timer">--</div>
+  </div>
+
+  <!-- ═══ REVEAL ═══ -->
+  <div class="screen" id="screen-reveal" style="justify-content:flex-start;padding-top:3vh;overflow-y:auto;">
+    <p class="text-dim mb-1" id="reveal-round-label"></p>
+    <div class="reveal-category" id="reveal-category"></div>
+    <div class="reveal-container" id="reveal-board"></div>
+    <div class="host-controls" style="position:relative;margin-top:1.5rem;">
+      <button class="btn btn-outline" id="btn-skip-reveal">SKIP ▸</button>
+    </div>
+  </div>
+
+  <!-- ═══ ROUND SCORES ═══ -->
+  <div class="screen" id="screen-round-scores" style="overflow-y:auto;justify-content:flex-start;padding-top:4vh;">
+    <h2 class="mb-2" id="scores-title"></h2>
+    <div class="scoreboard" id="round-scoreboard"></div>
+    <div class="host-controls" style="position:relative;margin-top:1.5rem;">
+      <button class="btn btn-gold btn-lg" id="btn-next-round">NEXT ROUND</button>
+    </div>
+  </div>
+
+  <!-- ═══ GAME OVER ═══ -->
+  <div class="screen" id="screen-game-over" style="overflow-y:auto;justify-content:flex-start;padding-top:3vh;">
+    <h2 style="font-size:2.4rem;margin-bottom:.5rem;">🏆 FINAL RESULTS</h2>
+    <div class="podium" id="podium"></div>
+    <div class="scoreboard mt-2" id="final-scoreboard"></div>
+    <div class="host-controls" style="position:relative;margin-top:1.5rem;">
+      <button class="btn btn-gold btn-lg" id="btn-play-again">PLAY AGAIN</button>
+    </div>
+  </div>
+
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/audio.js"></script>
+<script src="/js/host.js"></script>
+</body>
+</html>

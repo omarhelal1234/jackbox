@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Top Match – Party Game</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+  <style>
+    .error-toast {
+      position: fixed; top: 1rem; left: 50%; transform: translateX(-50%);
+      background: var(--danger); color: #fff; padding: .7rem 1.4rem;
+      border-radius: 10px; font-weight: 600; z-index: 100;
+      animation: slideDown .3s ease-out;
+      display: none;
+    }
+    .error-toast.show { display: block; }
+    @keyframes slideDown { from { opacity:0; transform: translate(-50%,-20px); } to { opacity:1; transform: translate(-50%,0); } }
+  </style>
+</head>
+<body>
+  <div id="error-toast" class="error-toast"></div>
+
+  <div class="landing-bg">
+    <h1 class="landing-title">TOP MATCH</h1>
+    <p class="landing-subtitle">The party game where great minds think alike!</p>
+
+    <div class="landing-actions">
+      <!-- HOST CARD -->
+      <div class="landing-card">
+        <h2>🖥️ Host a Game</h2>
+        <p>Display this on a TV or big screen</p>
+        <a href="/host.html" class="btn btn-gold btn-block btn-lg" id="host-btn">HOST A GAME</a>
+      </div>
+
+      <!-- JOIN CARD -->
+      <div class="landing-card">
+        <h2>📱 Join a Game</h2>
+        <p>Enter the room code shown on the TV</p>
+        <form id="join-form" autocomplete="off">
+          <input class="input input-code" id="code-input" type="text"
+                 placeholder="CODE" maxlength="4" required />
+          <input class="input" id="name-input" type="text"
+                 placeholder="Your nickname" maxlength="16" required style="margin-top:.75rem" />
+          <button type="submit" class="btn btn-secondary btn-block btn-lg" style="margin-top:1rem">
+            JOIN
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const form  = document.getElementById('join-form');
+    const codeI = document.getElementById('code-input');
+    const nameI = document.getElementById('name-input');
+    const toast = document.getElementById('error-toast');
+
+    // force uppercase for code
+    codeI.addEventListener('input', () => { codeI.value = codeI.value.toUpperCase().replace(/[^A-Z0-9]/g,''); });
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const code = codeI.value.trim();
+      const name = nameI.value.trim();
+      if (!code || code.length < 4) return showError('Enter a 4-character room code.');
+      if (!name) return showError('Enter a nickname.');
+      if (name.length > 16) return showError('Nickname must be 16 characters or fewer.');
+      window.location.href = `/player.html?code=${encodeURIComponent(code)}&name=${encodeURIComponent(name)}`;
+    });
+
+    function showError(msg) {
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3500);
+    }
+  </script>
+</body>
+</html>

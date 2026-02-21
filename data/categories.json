@@ -1,0 +1,482 @@
+[
+  {
+    "id": 1,
+    "prompt": "Things you see in a classroom",
+    "answers": [
+      { "rank": 1, "text": "desk", "synonyms": ["desks", "table", "tables"] },
+      { "rank": 2, "text": "teacher", "synonyms": ["teachers", "professor", "instructor"] },
+      { "rank": 3, "text": "whiteboard", "synonyms": ["board", "blackboard", "chalkboard"] },
+      { "rank": 4, "text": "chair", "synonyms": ["chairs", "seat", "seats"] },
+      { "rank": 5, "text": "pencil", "synonyms": ["pencils", "pen", "pens"] },
+      { "rank": 6, "text": "book", "synonyms": ["books", "textbook", "textbooks"] },
+      { "rank": 7, "text": "student", "synonyms": ["students", "kids", "children"] },
+      { "rank": 8, "text": "clock", "synonyms": ["clocks"] },
+      { "rank": 9, "text": "computer", "synonyms": ["computers", "laptop", "laptops"] },
+      { "rank": 10, "text": "backpack", "synonyms": ["backpacks", "bag", "bags", "school bag"] }
+    ]
+  },
+  {
+    "id": 2,
+    "prompt": "Things you find in a kitchen",
+    "answers": [
+      { "rank": 1, "text": "stove", "synonyms": ["oven", "range", "cooker"] },
+      { "rank": 2, "text": "refrigerator", "synonyms": ["fridge", "freezer"] },
+      { "rank": 3, "text": "sink", "synonyms": ["kitchen sink", "faucet"] },
+      { "rank": 4, "text": "microwave", "synonyms": ["microwave oven"] },
+      { "rank": 5, "text": "knife", "synonyms": ["knives", "kitchen knife"] },
+      { "rank": 6, "text": "pot", "synonyms": ["pots", "pan", "pans", "skillet"] },
+      { "rank": 7, "text": "plate", "synonyms": ["plates", "dish", "dishes"] },
+      { "rank": 8, "text": "fork", "synonyms": ["forks", "spoon", "spoons", "silverware", "utensils"] },
+      { "rank": 9, "text": "table", "synonyms": ["kitchen table", "counter", "countertop"] },
+      { "rank": 10, "text": "cup", "synonyms": ["cups", "glass", "glasses", "mug", "mugs"] }
+    ]
+  },
+  {
+    "id": 3,
+    "prompt": "Types of fruit",
+    "answers": [
+      { "rank": 1, "text": "apple", "synonyms": ["apples"] },
+      { "rank": 2, "text": "banana", "synonyms": ["bananas"] },
+      { "rank": 3, "text": "orange", "synonyms": ["oranges"] },
+      { "rank": 4, "text": "strawberry", "synonyms": ["strawberries"] },
+      { "rank": 5, "text": "grape", "synonyms": ["grapes"] },
+      { "rank": 6, "text": "watermelon", "synonyms": ["water melon"] },
+      { "rank": 7, "text": "mango", "synonyms": ["mangoes", "mangos"] },
+      { "rank": 8, "text": "pineapple", "synonyms": ["pineapples"] },
+      { "rank": 9, "text": "peach", "synonyms": ["peaches"] },
+      { "rank": 10, "text": "cherry", "synonyms": ["cherries"] }
+    ]
+  },
+  {
+    "id": 4,
+    "prompt": "Things at the beach",
+    "answers": [
+      { "rank": 1, "text": "sand", "synonyms": ["sandy"] },
+      { "rank": 2, "text": "water", "synonyms": ["ocean", "sea"] },
+      { "rank": 3, "text": "waves", "synonyms": ["wave"] },
+      { "rank": 4, "text": "sun", "synonyms": ["sunshine", "sunlight"] },
+      { "rank": 5, "text": "towel", "synonyms": ["towels", "beach towel"] },
+      { "rank": 6, "text": "sunscreen", "synonyms": ["sunblock", "suntan lotion", "spf"] },
+      { "rank": 7, "text": "umbrella", "synonyms": ["beach umbrella", "parasol"] },
+      { "rank": 8, "text": "surfboard", "synonyms": ["surf board", "boogie board"] },
+      { "rank": 9, "text": "shell", "synonyms": ["shells", "seashell", "seashells"] },
+      { "rank": 10, "text": "swimsuit", "synonyms": ["bathing suit", "bikini", "swim trunks", "trunks"] }
+    ]
+  },
+  {
+    "id": 5,
+    "prompt": "Things in a hospital",
+    "answers": [
+      { "rank": 1, "text": "doctor", "synonyms": ["doctors", "dr"] },
+      { "rank": 2, "text": "nurse", "synonyms": ["nurses"] },
+      { "rank": 3, "text": "bed", "synonyms": ["beds", "hospital bed"] },
+      { "rank": 4, "text": "medicine", "synonyms": ["medication", "pills", "drugs"] },
+      { "rank": 5, "text": "needle", "synonyms": ["needles", "syringe", "syringes", "shot"] },
+      { "rank": 6, "text": "stethoscope", "synonyms": ["stethoscopes"] },
+      { "rank": 7, "text": "bandage", "synonyms": ["bandages", "band aid", "bandaid"] },
+      { "rank": 8, "text": "wheelchair", "synonyms": ["wheel chair", "wheelchairs"] },
+      { "rank": 9, "text": "patient", "synonyms": ["patients", "sick people"] },
+      { "rank": 10, "text": "iv", "synonyms": ["iv drip", "iv bag", "intravenous"] }
+    ]
+  },
+  {
+    "id": 6,
+    "prompt": "Fast food restaurants",
+    "answers": [
+      { "rank": 1, "text": "mcdonalds", "synonyms": ["mcdonald's", "mickey ds", "mickey d's"] },
+      { "rank": 2, "text": "burger king", "synonyms": ["bk"] },
+      { "rank": 3, "text": "wendys", "synonyms": ["wendy's"] },
+      { "rank": 4, "text": "taco bell", "synonyms": ["tacobell"] },
+      { "rank": 5, "text": "chick fil a", "synonyms": ["chick-fil-a", "chickfila", "cfa"] },
+      { "rank": 6, "text": "subway", "synonyms": ["subs"] },
+      { "rank": 7, "text": "kfc", "synonyms": ["kentucky fried chicken"] },
+      { "rank": 8, "text": "pizza hut", "synonyms": ["pizzahut"] },
+      { "rank": 9, "text": "popeyes", "synonyms": ["popeye's"] },
+      { "rank": 10, "text": "dominos", "synonyms": ["domino's", "dominoes"] }
+    ]
+  },
+  {
+    "id": 7,
+    "prompt": "Things you do in the morning",
+    "answers": [
+      { "rank": 1, "text": "brush teeth", "synonyms": ["brush my teeth", "brushing teeth", "toothbrush"] },
+      { "rank": 2, "text": "shower", "synonyms": ["take a shower", "bathe", "bath"] },
+      { "rank": 3, "text": "eat breakfast", "synonyms": ["breakfast", "eat"] },
+      { "rank": 4, "text": "get dressed", "synonyms": ["dress", "put on clothes", "change clothes"] },
+      { "rank": 5, "text": "drink coffee", "synonyms": ["coffee", "make coffee", "tea"] },
+      { "rank": 6, "text": "wake up", "synonyms": ["alarm", "get up", "wakeup"] },
+      { "rank": 7, "text": "check phone", "synonyms": ["phone", "look at phone"] },
+      { "rank": 8, "text": "go to work", "synonyms": ["work", "commute", "drive to work"] },
+      { "rank": 9, "text": "exercise", "synonyms": ["workout", "work out", "run", "jog"] },
+      { "rank": 10, "text": "make bed", "synonyms": ["bed", "make the bed"] }
+    ]
+  },
+  {
+    "id": 8,
+    "prompt": "Animals at the zoo",
+    "answers": [
+      { "rank": 1, "text": "lion", "synonyms": ["lions"] },
+      { "rank": 2, "text": "elephant", "synonyms": ["elephants"] },
+      { "rank": 3, "text": "monkey", "synonyms": ["monkeys", "ape", "apes", "chimp", "chimpanzee"] },
+      { "rank": 4, "text": "giraffe", "synonyms": ["giraffes"] },
+      { "rank": 5, "text": "tiger", "synonyms": ["tigers"] },
+      { "rank": 6, "text": "bear", "synonyms": ["bears", "polar bear"] },
+      { "rank": 7, "text": "zebra", "synonyms": ["zebras"] },
+      { "rank": 8, "text": "gorilla", "synonyms": ["gorillas"] },
+      { "rank": 9, "text": "penguin", "synonyms": ["penguins"] },
+      { "rank": 10, "text": "snake", "synonyms": ["snakes", "python", "cobra"] }
+    ]
+  },
+  {
+    "id": 9,
+    "prompt": "Things in a bathroom",
+    "answers": [
+      { "rank": 1, "text": "toilet", "synonyms": ["toilets", "commode"] },
+      { "rank": 2, "text": "shower", "synonyms": ["bathtub", "tub", "bath"] },
+      { "rank": 3, "text": "sink", "synonyms": ["faucet", "basin"] },
+      { "rank": 4, "text": "mirror", "synonyms": ["mirrors"] },
+      { "rank": 5, "text": "toothbrush", "synonyms": ["toothbrushes", "tooth brush"] },
+      { "rank": 6, "text": "soap", "synonyms": ["body wash", "hand soap"] },
+      { "rank": 7, "text": "towel", "synonyms": ["towels", "bath towel"] },
+      { "rank": 8, "text": "shampoo", "synonyms": ["conditioner", "hair products"] },
+      { "rank": 9, "text": "toilet paper", "synonyms": ["tp", "tissue", "tissues"] },
+      { "rank": 10, "text": "toothpaste", "synonyms": ["tooth paste"] }
+    ]
+  },
+  {
+    "id": 10,
+    "prompt": "Sports played with a ball",
+    "answers": [
+      { "rank": 1, "text": "basketball", "synonyms": ["bball", "b ball"] },
+      { "rank": 2, "text": "football", "synonyms": ["american football", "nfl"] },
+      { "rank": 3, "text": "soccer", "synonyms": ["futbol", "football"] },
+      { "rank": 4, "text": "baseball", "synonyms": ["softball"] },
+      { "rank": 5, "text": "tennis", "synonyms": ["table tennis", "ping pong"] },
+      { "rank": 6, "text": "volleyball", "synonyms": ["volley ball"] },
+      { "rank": 7, "text": "golf", "synonyms": ["mini golf"] },
+      { "rank": 8, "text": "bowling", "synonyms": ["bowl"] },
+      { "rank": 9, "text": "rugby", "synonyms": ["rugby football"] },
+      { "rank": 10, "text": "cricket", "synonyms": [] }
+    ]
+  },
+  {
+    "id": 11,
+    "prompt": "Things to bring camping",
+    "answers": [
+      { "rank": 1, "text": "tent", "synonyms": ["tents"] },
+      { "rank": 2, "text": "sleeping bag", "synonyms": ["sleeping bags", "blanket"] },
+      { "rank": 3, "text": "food", "synonyms": ["snacks", "meals"] },
+      { "rank": 4, "text": "water", "synonyms": ["water bottle", "drinks"] },
+      { "rank": 5, "text": "flashlight", "synonyms": ["torch", "lantern", "light"] },
+      { "rank": 6, "text": "matches", "synonyms": ["lighter", "fire starter", "firestarter"] },
+      { "rank": 7, "text": "bug spray", "synonyms": ["insect repellent", "mosquito spray"] },
+      { "rank": 8, "text": "knife", "synonyms": ["pocket knife", "Swiss army knife"] },
+      { "rank": 9, "text": "first aid kit", "synonyms": ["first aid", "medical kit"] },
+      { "rank": 10, "text": "chair", "synonyms": ["camping chair", "chairs", "camp chair"] }
+    ]
+  },
+  {
+    "id": 12,
+    "prompt": "Pizza toppings",
+    "answers": [
+      { "rank": 1, "text": "pepperoni", "synonyms": ["pepperonis"] },
+      { "rank": 2, "text": "cheese", "synonyms": ["mozzarella", "extra cheese"] },
+      { "rank": 3, "text": "mushroom", "synonyms": ["mushrooms"] },
+      { "rank": 4, "text": "sausage", "synonyms": ["italian sausage"] },
+      { "rank": 5, "text": "onion", "synonyms": ["onions", "red onion"] },
+      { "rank": 6, "text": "pepper", "synonyms": ["peppers", "bell pepper", "green pepper", "bell peppers"] },
+      { "rank": 7, "text": "olive", "synonyms": ["olives", "black olives"] },
+      { "rank": 8, "text": "bacon", "synonyms": ["canadian bacon"] },
+      { "rank": 9, "text": "pineapple", "synonyms": ["pineapples", "hawaiian"] },
+      { "rank": 10, "text": "ham", "synonyms": ["hams"] }
+    ]
+  },
+  {
+    "id": 13,
+    "prompt": "Things in a wallet or purse",
+    "answers": [
+      { "rank": 1, "text": "money", "synonyms": ["cash", "bills", "dollars"] },
+      { "rank": 2, "text": "credit card", "synonyms": ["credit cards", "debit card", "bank card", "card"] },
+      { "rank": 3, "text": "id", "synonyms": ["identification", "drivers license", "license", "driver license"] },
+      { "rank": 4, "text": "photo", "synonyms": ["photos", "picture", "pictures"] },
+      { "rank": 5, "text": "receipt", "synonyms": ["receipts"] },
+      { "rank": 6, "text": "coins", "synonyms": ["change", "loose change"] },
+      { "rank": 7, "text": "business card", "synonyms": ["business cards"] },
+      { "rank": 8, "text": "gift card", "synonyms": ["gift cards"] },
+      { "rank": 9, "text": "insurance card", "synonyms": ["insurance", "health card"] },
+      { "rank": 10, "text": "keys", "synonyms": ["key"] }
+    ]
+  },
+  {
+    "id": 14,
+    "prompt": "Name a superhero",
+    "answers": [
+      { "rank": 1, "text": "superman", "synonyms": ["super man", "clark kent"] },
+      { "rank": 2, "text": "batman", "synonyms": ["bat man", "bruce wayne"] },
+      { "rank": 3, "text": "spiderman", "synonyms": ["spider-man", "spider man", "peter parker"] },
+      { "rank": 4, "text": "wonder woman", "synonyms": ["wonderwoman", "diana"] },
+      { "rank": 5, "text": "iron man", "synonyms": ["ironman", "tony stark"] },
+      { "rank": 6, "text": "captain america", "synonyms": ["cap", "steve rogers"] },
+      { "rank": 7, "text": "hulk", "synonyms": ["the hulk", "bruce banner"] },
+      { "rank": 8, "text": "thor", "synonyms": ["thor odinson"] },
+      { "rank": 9, "text": "flash", "synonyms": ["the flash", "barry allen"] },
+      { "rank": 10, "text": "aquaman", "synonyms": ["aqua man"] }
+    ]
+  },
+  {
+    "id": 15,
+    "prompt": "Things you see at a wedding",
+    "answers": [
+      { "rank": 1, "text": "cake", "synonyms": ["wedding cake"] },
+      { "rank": 2, "text": "bride", "synonyms": ["the bride"] },
+      { "rank": 3, "text": "groom", "synonyms": ["the groom", "bridegroom"] },
+      { "rank": 4, "text": "flowers", "synonyms": ["bouquet", "flower", "roses"] },
+      { "rank": 5, "text": "dress", "synonyms": ["wedding dress", "gown", "wedding gown"] },
+      { "rank": 6, "text": "ring", "synonyms": ["rings", "wedding ring", "wedding rings", "wedding band"] },
+      { "rank": 7, "text": "music", "synonyms": ["dj", "band", "dancing"] },
+      { "rank": 8, "text": "dance", "synonyms": ["dancing", "first dance"] },
+      { "rank": 9, "text": "veil", "synonyms": ["veils"] },
+      { "rank": 10, "text": "photographer", "synonyms": ["photos", "camera", "cameras"] }
+    ]
+  },
+  {
+    "id": 16,
+    "prompt": "Breakfast foods",
+    "answers": [
+      { "rank": 1, "text": "eggs", "synonyms": ["egg", "scrambled eggs", "fried eggs"] },
+      { "rank": 2, "text": "bacon", "synonyms": ["turkey bacon"] },
+      { "rank": 3, "text": "pancakes", "synonyms": ["pancake", "flapjack", "flapjacks"] },
+      { "rank": 4, "text": "toast", "synonyms": ["bread", "toasted bread"] },
+      { "rank": 5, "text": "cereal", "synonyms": ["cereals"] },
+      { "rank": 6, "text": "waffles", "synonyms": ["waffle"] },
+      { "rank": 7, "text": "sausage", "synonyms": ["sausages", "breakfast sausage"] },
+      { "rank": 8, "text": "oatmeal", "synonyms": ["porridge", "oats"] },
+      { "rank": 9, "text": "fruit", "synonyms": ["fruits", "fresh fruit"] },
+      { "rank": 10, "text": "bagel", "synonyms": ["bagels"] }
+    ]
+  },
+  {
+    "id": 17,
+    "prompt": "Things that are red",
+    "answers": [
+      { "rank": 1, "text": "apple", "synonyms": ["apples", "red apple"] },
+      { "rank": 2, "text": "blood", "synonyms": [] },
+      { "rank": 3, "text": "rose", "synonyms": ["roses", "red rose"] },
+      { "rank": 4, "text": "fire truck", "synonyms": ["firetruck", "fire engine"] },
+      { "rank": 5, "text": "tomato", "synonyms": ["tomatoes"] },
+      { "rank": 6, "text": "strawberry", "synonyms": ["strawberries"] },
+      { "rank": 7, "text": "heart", "synonyms": ["hearts"] },
+      { "rank": 8, "text": "stop sign", "synonyms": ["stopsign"] },
+      { "rank": 9, "text": "cherry", "synonyms": ["cherries"] },
+      { "rank": 10, "text": "fire", "synonyms": ["flame", "flames"] }
+    ]
+  },
+  {
+    "id": 18,
+    "prompt": "Parts of a car",
+    "answers": [
+      { "rank": 1, "text": "engine", "synonyms": ["motor"] },
+      { "rank": 2, "text": "wheel", "synonyms": ["wheels", "tire", "tires"] },
+      { "rank": 3, "text": "steering wheel", "synonyms": ["steering"] },
+      { "rank": 4, "text": "door", "synonyms": ["doors", "car door"] },
+      { "rank": 5, "text": "windshield", "synonyms": ["window", "windows", "windscreen"] },
+      { "rank": 6, "text": "seat", "synonyms": ["seats", "car seat"] },
+      { "rank": 7, "text": "brake", "synonyms": ["brakes", "brake pedal"] },
+      { "rank": 8, "text": "headlight", "synonyms": ["headlights", "lights", "head light"] },
+      { "rank": 9, "text": "mirror", "synonyms": ["mirrors", "rearview mirror", "side mirror"] },
+      { "rank": 10, "text": "bumper", "synonyms": ["bumpers", "fender"] }
+    ]
+  },
+  {
+    "id": 19,
+    "prompt": "Board games",
+    "answers": [
+      { "rank": 1, "text": "monopoly", "synonyms": [] },
+      { "rank": 2, "text": "chess", "synonyms": [] },
+      { "rank": 3, "text": "scrabble", "synonyms": [] },
+      { "rank": 4, "text": "checkers", "synonyms": ["draughts"] },
+      { "rank": 5, "text": "clue", "synonyms": ["cluedo"] },
+      { "rank": 6, "text": "sorry", "synonyms": [] },
+      { "rank": 7, "text": "risk", "synonyms": [] },
+      { "rank": 8, "text": "life", "synonyms": ["game of life", "the game of life"] },
+      { "rank": 9, "text": "battleship", "synonyms": ["battle ship"] },
+      { "rank": 10, "text": "connect four", "synonyms": ["connect 4"] }
+    ]
+  },
+  {
+    "id": 20,
+    "prompt": "Things you find in a park",
+    "answers": [
+      { "rank": 1, "text": "tree", "synonyms": ["trees"] },
+      { "rank": 2, "text": "bench", "synonyms": ["benches", "park bench"] },
+      { "rank": 3, "text": "grass", "synonyms": ["lawn"] },
+      { "rank": 4, "text": "playground", "synonyms": ["swing", "swings", "slide", "slides"] },
+      { "rank": 5, "text": "dog", "synonyms": ["dogs", "puppy", "puppies"] },
+      { "rank": 6, "text": "fountain", "synonyms": ["water fountain"] },
+      { "rank": 7, "text": "path", "synonyms": ["trail", "walkway", "sidewalk"] },
+      { "rank": 8, "text": "flower", "synonyms": ["flowers"] },
+      { "rank": 9, "text": "bird", "synonyms": ["birds", "pigeon", "pigeons"] },
+      { "rank": 10, "text": "lake", "synonyms": ["pond", "water"] }
+    ]
+  },
+  {
+    "id": 21,
+    "prompt": "Musical instruments",
+    "answers": [
+      { "rank": 1, "text": "guitar", "synonyms": ["guitars", "acoustic guitar", "electric guitar"] },
+      { "rank": 2, "text": "piano", "synonyms": ["keyboard", "keys"] },
+      { "rank": 3, "text": "drums", "synonyms": ["drum", "drum set", "drumset"] },
+      { "rank": 4, "text": "violin", "synonyms": ["violins", "fiddle"] },
+      { "rank": 5, "text": "trumpet", "synonyms": ["trumpets"] },
+      { "rank": 6, "text": "flute", "synonyms": ["flutes"] },
+      { "rank": 7, "text": "saxophone", "synonyms": ["sax", "saxophones"] },
+      { "rank": 8, "text": "bass", "synonyms": ["bass guitar", "upright bass"] },
+      { "rank": 9, "text": "ukulele", "synonyms": ["ukelele", "uke"] },
+      { "rank": 10, "text": "cello", "synonyms": ["cellos"] }
+    ]
+  },
+  {
+    "id": 22,
+    "prompt": "Things you wear on your feet",
+    "answers": [
+      { "rank": 1, "text": "shoes", "synonyms": ["shoe"] },
+      { "rank": 2, "text": "socks", "synonyms": ["sock"] },
+      { "rank": 3, "text": "sneakers", "synonyms": ["sneaker", "tennis shoes", "trainers", "running shoes"] },
+      { "rank": 4, "text": "sandals", "synonyms": ["sandal", "flip flops", "flip-flops"] },
+      { "rank": 5, "text": "boots", "synonyms": ["boot", "work boots"] },
+      { "rank": 6, "text": "heels", "synonyms": ["high heels", "stilettos", "pumps"] },
+      { "rank": 7, "text": "slippers", "synonyms": ["slipper", "house slippers"] },
+      { "rank": 8, "text": "cleats", "synonyms": ["cleat", "soccer cleats", "football cleats"] },
+      { "rank": 9, "text": "crocs", "synonyms": ["croc"] },
+      { "rank": 10, "text": "loafers", "synonyms": ["loafer", "moccasins"] }
+    ]
+  },
+  {
+    "id": 23,
+    "prompt": "Things in an office",
+    "answers": [
+      { "rank": 1, "text": "desk", "synonyms": ["desks", "table"] },
+      { "rank": 2, "text": "computer", "synonyms": ["pc", "laptop", "computers"] },
+      { "rank": 3, "text": "chair", "synonyms": ["chairs", "office chair"] },
+      { "rank": 4, "text": "printer", "synonyms": ["printers", "copier"] },
+      { "rank": 5, "text": "phone", "synonyms": ["telephone", "phones"] },
+      { "rank": 6, "text": "paper", "synonyms": ["papers", "documents"] },
+      { "rank": 7, "text": "pen", "synonyms": ["pens", "pencil", "pencils"] },
+      { "rank": 8, "text": "stapler", "synonyms": ["staplers", "staple"] },
+      { "rank": 9, "text": "monitor", "synonyms": ["screen", "monitors", "display"] },
+      { "rank": 10, "text": "filing cabinet", "synonyms": ["cabinet", "file cabinet", "files"] }
+    ]
+  },
+  {
+    "id": 24,
+    "prompt": "Ice cream flavors",
+    "answers": [
+      { "rank": 1, "text": "vanilla", "synonyms": ["french vanilla"] },
+      { "rank": 2, "text": "chocolate", "synonyms": ["double chocolate", "dark chocolate"] },
+      { "rank": 3, "text": "strawberry", "synonyms": ["strawberries"] },
+      { "rank": 4, "text": "mint chocolate chip", "synonyms": ["mint", "mint chip", "mint choc chip"] },
+      { "rank": 5, "text": "cookie dough", "synonyms": ["chocolate chip cookie dough", "cookies"] },
+      { "rank": 6, "text": "cookies and cream", "synonyms": ["oreo", "cookies n cream", "cookies & cream"] },
+      { "rank": 7, "text": "butter pecan", "synonyms": ["butterpecan"] },
+      { "rank": 8, "text": "rocky road", "synonyms": ["rockyroad"] },
+      { "rank": 9, "text": "neapolitan", "synonyms": [] },
+      { "rank": 10, "text": "caramel", "synonyms": ["salted caramel", "dulce de leche"] }
+    ]
+  },
+  {
+    "id": 25,
+    "prompt": "Things that can fly",
+    "answers": [
+      { "rank": 1, "text": "bird", "synonyms": ["birds"] },
+      { "rank": 2, "text": "airplane", "synonyms": ["plane", "jet", "aeroplane", "aircraft"] },
+      { "rank": 3, "text": "helicopter", "synonyms": ["chopper", "helicopters"] },
+      { "rank": 4, "text": "butterfly", "synonyms": ["butterflies"] },
+      { "rank": 5, "text": "bee", "synonyms": ["bees", "bumblebee"] },
+      { "rank": 6, "text": "bat", "synonyms": ["bats"] },
+      { "rank": 7, "text": "kite", "synonyms": ["kites"] },
+      { "rank": 8, "text": "drone", "synonyms": ["drones"] },
+      { "rank": 9, "text": "eagle", "synonyms": ["eagles", "bald eagle"] },
+      { "rank": 10, "text": "fly", "synonyms": ["flies", "housefly"] }
+    ]
+  },
+  {
+    "id": 26,
+    "prompt": "Things at a carnival or fair",
+    "answers": [
+      { "rank": 1, "text": "ferris wheel", "synonyms": ["ferriswheel"] },
+      { "rank": 2, "text": "roller coaster", "synonyms": ["rollercoaster", "coaster"] },
+      { "rank": 3, "text": "cotton candy", "synonyms": ["candy floss", "candyfloss"] },
+      { "rank": 4, "text": "games", "synonyms": ["carnival games", "game"] },
+      { "rank": 5, "text": "popcorn", "synonyms": ["pop corn"] },
+      { "rank": 6, "text": "clown", "synonyms": ["clowns"] },
+      { "rank": 7, "text": "rides", "synonyms": ["ride", "carnival rides"] },
+      { "rank": 8, "text": "funnel cake", "synonyms": ["funnel cakes"] },
+      { "rank": 9, "text": "prizes", "synonyms": ["stuffed animals", "prize", "stuffed animal"] },
+      { "rank": 10, "text": "corn dog", "synonyms": ["corn dogs", "corndog"] }
+    ]
+  },
+  {
+    "id": 27,
+    "prompt": "Dog breeds",
+    "answers": [
+      { "rank": 1, "text": "golden retriever", "synonyms": ["golden", "goldens"] },
+      { "rank": 2, "text": "labrador", "synonyms": ["lab", "labrador retriever", "labs"] },
+      { "rank": 3, "text": "german shepherd", "synonyms": ["german shepard", "gsd"] },
+      { "rank": 4, "text": "bulldog", "synonyms": ["bull dog", "french bulldog", "english bulldog"] },
+      { "rank": 5, "text": "poodle", "synonyms": ["poodles", "standard poodle"] },
+      { "rank": 6, "text": "beagle", "synonyms": ["beagles"] },
+      { "rank": 7, "text": "husky", "synonyms": ["siberian husky", "huskies"] },
+      { "rank": 8, "text": "chihuahua", "synonyms": ["chihuahuas"] },
+      { "rank": 9, "text": "rottweiler", "synonyms": ["rottie", "rotties", "rottweilers"] },
+      { "rank": 10, "text": "dalmatian", "synonyms": ["dalmatians", "dalmation"] }
+    ]
+  },
+  {
+    "id": 28,
+    "prompt": "Things you do on vacation",
+    "answers": [
+      { "rank": 1, "text": "swim", "synonyms": ["swimming", "go swimming"] },
+      { "rank": 2, "text": "relax", "synonyms": ["rest", "sleep", "nap"] },
+      { "rank": 3, "text": "eat", "synonyms": ["eating", "try food", "dine", "dining"] },
+      { "rank": 4, "text": "sightsee", "synonyms": ["sightseeing", "tour", "explore", "exploring"] },
+      { "rank": 5, "text": "shop", "synonyms": ["shopping", "go shopping"] },
+      { "rank": 6, "text": "beach", "synonyms": ["go to the beach", "go to beach"] },
+      { "rank": 7, "text": "take photos", "synonyms": ["photos", "pictures", "take pictures"] },
+      { "rank": 8, "text": "hike", "synonyms": ["hiking", "go hiking"] },
+      { "rank": 9, "text": "read", "synonyms": ["reading", "read a book"] },
+      { "rank": 10, "text": "sunbathe", "synonyms": ["tan", "sunbathing", "lay out"] }
+    ]
+  },
+  {
+    "id": 29,
+    "prompt": "Things in a refrigerator",
+    "answers": [
+      { "rank": 1, "text": "milk", "synonyms": ["milks"] },
+      { "rank": 2, "text": "eggs", "synonyms": ["egg"] },
+      { "rank": 3, "text": "butter", "synonyms": ["margarine"] },
+      { "rank": 4, "text": "cheese", "synonyms": ["cheeses"] },
+      { "rank": 5, "text": "water", "synonyms": ["water bottle", "bottled water"] },
+      { "rank": 6, "text": "juice", "synonyms": ["orange juice", "oj", "apple juice"] },
+      { "rank": 7, "text": "leftovers", "synonyms": ["leftover food", "leftover"] },
+      { "rank": 8, "text": "fruit", "synonyms": ["fruits", "fresh fruit"] },
+      { "rank": 9, "text": "vegetables", "synonyms": ["veggies", "vegetable", "salad"] },
+      { "rank": 10, "text": "condiments", "synonyms": ["ketchup", "mustard", "mayo", "sauce"] }
+    ]
+  },
+  {
+    "id": 30,
+    "prompt": "Social media platforms",
+    "answers": [
+      { "rank": 1, "text": "instagram", "synonyms": ["ig", "insta"] },
+      { "rank": 2, "text": "facebook", "synonyms": ["fb", "meta"] },
+      { "rank": 3, "text": "twitter", "synonyms": ["x"] },
+      { "rank": 4, "text": "tiktok", "synonyms": ["tik tok", "tik-tok"] },
+      { "rank": 5, "text": "snapchat", "synonyms": ["snap", "snap chat"] },
+      { "rank": 6, "text": "youtube", "synonyms": ["yt", "you tube"] },
+      { "rank": 7, "text": "reddit", "synonyms": [] },
+      { "rank": 8, "text": "linkedin", "synonyms": ["linked in"] },
+      { "rank": 9, "text": "pinterest", "synonyms": [] },
+      { "rank": 10, "text": "whatsapp", "synonyms": ["whats app"] }
+    ]
+  }
+]

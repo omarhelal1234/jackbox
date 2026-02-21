@@ -1,0 +1,14 @@
+{
+  "name": "jackbox-party-game",
+  "version": "1.0.0",
+  "description": "A Jackbox-style party game – match answers to ranked category lists",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "socket.io": "^4.8.1"
+  }
+}
