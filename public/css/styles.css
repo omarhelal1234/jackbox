@@ -103,6 +103,7 @@ html, body {
   padding: 2rem;
   opacity: 0; pointer-events: none;
   transition: opacity .35s;
+  overflow-y: auto;
 }
 .screen.active { opacity: 1; pointer-events: all; }
 
@@ -143,7 +144,7 @@ html, body {
 .host-bg {
   min-height: 100vh; width: 100%;
   background: linear-gradient(160deg, #0f0326 0%, #1a0a3e 50%, #2d1254 100%);
-  overflow: hidden; position: relative;
+  overflow-y: auto; overflow-x: hidden; position: relative;
 }
 
 .room-code-display {
@@ -187,8 +188,11 @@ html, body {
 @keyframes chipIn { from { opacity: 0; transform: scale(.7) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
 
 .host-controls {
-  position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%);
+  position: relative; 
   display: flex; gap: 1rem; z-index: 50;
+  justify-content: center;
+  margin-top: 1.5rem;
+  padding-bottom: 2rem;
 }
 
 /* settings panel */
@@ -230,6 +234,7 @@ html, body {
   25%     { transform: translateX(-4px); }
   75%     { transform: translateX(4px); }
 }
+.shake-anim { animation: shake .15s ease 3; }
 .submission-counter { color: var(--text-dim); font-size: 1.2rem; }
 
 /* reveal board */
@@ -438,3 +443,383 @@ html, body {
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: rgba(255,255,255,.15); border-radius: 3px; }
+
+/* ══════════════════════
+   NUTSHELL MODE — Team Board Game
+   ══════════════════════ */
+
+/* category badge on host & player */
+.nutshell-category-badge {
+  font-size: 1.3rem; font-weight: 700;
+  padding: .5rem 1.2rem;
+  border-radius: 999px;
+  background: rgba(253,203,110,.15);
+  color: var(--gold);
+  display: inline-block;
+  margin-bottom: .8rem;
+  animation: popIn .5s ease-out;
+}
+
+/* points display */
+.nutshell-points-display {
+  font-size: 1.1rem; color: var(--text-dim);
+  margin-bottom: .8rem;
+}
+.nutshell-points-display span,
+.nutshell-player-pts span {
+  font-weight: 800; color: var(--gold); font-size: 1.4rem;
+  transition: transform .3s;
+}
+.nutshell-player-pts {
+  font-size: 1rem; color: var(--text-dim);
+  margin-bottom: 1rem;
+}
+
+/* ── Turn Banner ── */
+.nutshell-turn-banner {
+  font-size: 1.3rem; font-weight: 800;
+  padding: .6rem 1.5rem;
+  border-radius: var(--radius);
+  margin-bottom: .5rem;
+  text-align: center;
+  animation: popIn .4s ease-out;
+}
+.nutshell-turn-banner.team-red-bg {
+  background: rgba(231,76,60,.2);
+  border: 2px solid rgba(231,76,60,.5);
+  color: #e74c3c;
+}
+.nutshell-turn-banner.team-blue-bg {
+  background: rgba(52,152,219,.2);
+  border: 2px solid rgba(52,152,219,.5);
+  color: #3498db;
+}
+
+/* ── Timer row ── */
+.nutshell-timer-row {
+  margin-bottom: .5rem;
+}
+.nutshell-timer-ring {
+  width: 50px; height: 50px; font-size: 1.3rem;
+}
+
+/* ── Board Grid ── */
+.nutshell-board {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  gap: .6rem;
+  width: 100%; max-width: 700px;
+  padding: 1rem;
+  margin-bottom: .8rem;
+}
+
+.board-tile {
+  aspect-ratio: 1.4;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 10px;
+  font-weight: 800;
+  cursor: default;
+  transition: all .4s cubic-bezier(.34,1.56,.64,1);
+  position: relative;
+  overflow: hidden;
+}
+
+/* covered tile */
+.board-tile:not(.revealed) {
+  background: linear-gradient(135deg, #2d3436 0%, #636e72 100%);
+  border: 2px solid rgba(255,255,255,.15);
+  box-shadow: 0 3px 10px rgba(0,0,0,.3);
+}
+.board-tile:not(.revealed) .tile-number {
+  font-size: 1.6rem;
+  color: rgba(255,255,255,.6);
+}
+
+/* revealed tile */
+.board-tile.revealed {
+  background: linear-gradient(135deg, rgba(253,203,110,.25) 0%, rgba(253,203,110,.08) 100%);
+  border: 2px solid rgba(253,203,110,.5);
+  animation: tileFlip .5s ease-out;
+}
+.board-tile.revealed .tile-word {
+  font-size: 1rem;
+  color: #fff;
+  text-align: center;
+  word-break: break-word;
+  padding: .2rem;
+}
+
+@keyframes tileFlip {
+  0% { transform: rotateY(90deg) scale(.8); opacity: 0; }
+  100% { transform: rotateY(0) scale(1); opacity: 1; }
+}
+
+/* ── Team Scores (on board screen) ── */
+.nutshell-team-scores {
+  display: flex; gap: 2rem;
+  margin-bottom: .8rem;
+}
+.ts-team {
+  font-size: 1.1rem; font-weight: 700;
+  padding: .3rem 1rem;
+  border-radius: var(--radius);
+}
+.ts-red { background: rgba(231,76,60,.15); color: #e74c3c; }
+.ts-blue { background: rgba(52,152,219,.15); color: #3498db; }
+
+/* ── Activity Log ── */
+.nutshell-activity-log {
+  width: 100%; max-width: 600px;
+  max-height: 140px;
+  overflow-y: auto;
+  display: flex; flex-direction: column; gap: .3rem;
+}
+.activity-entry {
+  font-size: .85rem; padding: .35rem .7rem;
+  border-radius: 6px;
+  background: rgba(255,255,255,.05);
+  border-left: 3px solid rgba(255,255,255,.15);
+  animation: slideIn .3s ease-out;
+}
+.activity-entry.activity-correct {
+  background: rgba(0,184,148,.12);
+  border-left-color: #00b894;
+  color: #00b894;
+}
+.activity-entry.activity-wrong {
+  background: rgba(214,48,49,.1);
+  border-left-color: #d63031;
+  color: #d63031;
+}
+.activity-entry.activity-timeout {
+  color: var(--text-dim);
+}
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Team Display (Lobby) ── */
+.team-display {
+  width: 100%; max-width: 440px;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: .8rem;
+  margin-top: .5rem;
+}
+.team-col {
+  padding: .8rem; border-radius: var(--radius);
+  text-align: center;
+}
+.team-col h3 { font-size: 1.1rem; margin-bottom: .5rem; }
+.team-red-col {
+  background: rgba(231,76,60,.1);
+  border: 2px solid rgba(231,76,60,.3);
+}
+.team-blue-col {
+  background: rgba(52,152,219,.1);
+  border: 2px solid rgba(52,152,219,.3);
+}
+.team-member-list {
+  display: flex; flex-direction: column; gap: .3rem;
+  min-height: 30px;
+}
+.team-member {
+  display: flex; align-items: center; gap: .4rem;
+  font-size: .9rem; font-weight: 600;
+  padding: .25rem .5rem;
+  border-radius: 6px;
+  background: rgba(255,255,255,.05);
+}
+.team-unassigned {
+  grid-column: 1 / -1;
+  font-size: .85rem; padding: .3rem .5rem;
+  text-align: center;
+}
+
+/* ── Team Selection (Player) ── */
+.team-select-area {
+  text-align: center;
+}
+.team-buttons {
+  display: flex; gap: 1rem; justify-content: center;
+  margin-top: .8rem;
+}
+.team-btn {
+  width: 120px; height: 100px;
+  border-radius: var(--radius);
+  border: 3px solid rgba(255,255,255,.15);
+  background: rgba(255,255,255,.05);
+  color: #fff;
+  font-size: 1.1rem; font-weight: 700;
+  cursor: pointer;
+  transition: all .2s;
+}
+.team-btn:active { transform: scale(.95); }
+.team-red-btn:hover, .team-red-btn.selected {
+  background: rgba(231,76,60,.25);
+  border-color: #e74c3c;
+  box-shadow: 0 0 15px rgba(231,76,60,.3);
+}
+.team-blue-btn:hover, .team-blue-btn.selected {
+  background: rgba(52,152,219,.25);
+  border-color: #3498db;
+  box-shadow: 0 0 15px rgba(52,152,219,.3);
+}
+
+/* ── Player Turn UI ── */
+.turn-label {
+  font-size: 1.5rem; margin-bottom: .5rem;
+  color: var(--gold);
+}
+.nutshell-clue-text {
+  font-size: 1rem; color: var(--text-dim);
+  padding: .6rem 1rem;
+  background: rgba(0,0,0,.2);
+  border-radius: var(--radius);
+  margin-bottom: .8rem;
+  word-spacing: .3rem;
+  line-height: 1.6;
+  min-height: 40px;
+  max-width: 400px; width: 100%;
+  text-align: center;
+}
+
+.nutshell-action-choice {
+  display: flex; flex-direction: column; gap: .8rem;
+  width: 100%; max-width: 300px;
+}
+.btn-reveal {
+  background: linear-gradient(135deg, #6c5ce7, #a29bfe) !important;
+  color: #fff !important;
+}
+.btn-guess-mode {
+  background: linear-gradient(135deg, #00b894, #55efc4) !important;
+  color: #1a1a2e !important;
+}
+
+.nutshell-word-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: .5rem;
+  width: 100%; max-width: 300px;
+  margin-bottom: .8rem;
+}
+.word-num-btn {
+  padding: .6rem;
+  border-radius: 8px;
+  border: 2px solid rgba(108,92,231,.5);
+  background: rgba(108,92,231,.15);
+  color: #fff;
+  font-size: 1.1rem; font-weight: 700;
+  cursor: pointer;
+  transition: all .15s;
+}
+.word-num-btn:hover { background: rgba(108,92,231,.35); transform: scale(1.05); }
+.word-num-btn:disabled { opacity: .3; cursor: default; transform: none; }
+
+.nutshell-guess-area {
+  width: 100%; max-width: 350px;
+}
+
+/* ── Nutshell Results ── */
+.nutshell-answer-reveal {
+  font-size: 1.6rem; margin-bottom: .5rem; text-align: center;
+}
+.nutshell-answer-reveal .answer-label {
+  color: var(--text-dim); font-weight: 400;
+}
+.nutshell-answer-reveal .answer-text {
+  font-weight: 800; color: var(--gold);
+}
+.nutshell-results-question {
+  font-size: 1rem; color: var(--text-dim); text-align: center;
+  margin-bottom: 1rem; font-style: italic;
+}
+
+.nutshell-winner-banner {
+  font-size: 1.2rem; font-weight: 700;
+  padding: .8rem 1.5rem;
+  border-radius: var(--radius);
+  text-align: center;
+  margin-bottom: 1rem;
+  background: rgba(255,255,255,.05);
+  border: 2px solid rgba(255,255,255,.1);
+}
+.nutshell-winner-banner.team-red-bg {
+  background: rgba(231,76,60,.15);
+  border-color: rgba(231,76,60,.4);
+}
+.nutshell-winner-banner.team-blue-bg {
+  background: rgba(52,152,219,.15);
+  border-color: rgba(52,152,219,.4);
+}
+.winner-pts { color: var(--gold); font-size: 1.3rem; }
+
+.nutshell-team-scoreboard {
+  width: 100%; max-width: 400px;
+  margin-bottom: 1rem;
+}
+.ts-result-row {
+  display: flex; justify-content: space-between;
+  padding: .5rem 1rem;
+  background: rgba(255,255,255,.05);
+  border-radius: 6px;
+  margin-bottom: .3rem;
+  font-weight: 600;
+}
+.ts-score { font-weight: 800; color: var(--gold); }
+
+/* player: guess feedback */
+.nutshell-feedback {
+  margin-top: .5rem; padding: .6rem 1rem;
+  border-radius: var(--radius); font-weight: 600;
+  text-align: center; font-size: 1rem;
+}
+.nutshell-feedback.wrong {
+  background: rgba(214,48,49,.15);
+  color: var(--danger);
+  border: 1px solid rgba(214,48,49,.3);
+  animation: shakeSmall .4s ease;
+}
+@keyframes shakeSmall {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-5px); }
+  40%, 80% { transform: translateX(5px); }
+}
+
+/* player: earned points display */
+.nutshell-earned-pts {
+  font-size: 2.5rem; font-weight: 800; color: var(--gold);
+  margin-top: .5rem;
+  animation: popIn .5s ease-out;
+}
+
+.pop-in {
+  animation: popIn .35s cubic-bezier(.34,1.56,.64,1) both;
+}
+@keyframes popIn {
+  0% { opacity: 0; transform: scale(0.3); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+/* ══════════════
+   CATEGORY GROUP CHECKBOXES
+   ══════════════ */
+.cat-group-label {
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  font-size: .85rem;
+  cursor: pointer;
+  padding: .25rem .4rem;
+  border-radius: 6px;
+  transition: background .15s;
+}
+.cat-group-label:hover { background: rgba(255,255,255,.07); }
+.cat-group-label input[type="checkbox"] {
+  accent-color: var(--accent, #00e5ff);
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+.cat-group-label span { white-space: nowrap; }

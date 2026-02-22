@@ -2,7 +2,9 @@ const express  = require('express');
 const http     = require('http');
 const { Server } = require('socket.io');
 const path     = require('path');
+const QRCode   = require('qrcode');
 const Room     = require('./game/Room');
+const categories = require('./data/categories.json');
 
 const app    = express();
 const server = http.createServer(app);
@@ -10,6 +12,43 @@ const io     = new Server(server, { cors: { origin: '*' } });
 const PORT   = process.env.PORT || 3000;
 
 app.use(express.static(path.join(__dirname, 'public')));
+
+/* ─── network info endpoint for QR code ─── */
+app.get('/network-info', (_req, res) => {
+  const nets = require('os').networkInterfaces();
+  const ips = Object.values(nets).flat()
+    .filter(i => i.family === 'IPv4' && !i.internal)
+    .map(i => i.address);
+  res.json({ ips, port: PORT });
+});
+
+/* ─── category groups endpoint (derived from group field in JSON) ─── */
+app.get('/category-groups', (_req, res) => {
+  const counts = {};
+  for (const c of categories) {
+    counts[c.group] = (counts[c.group] || 0) + 1;
+  }
+  const groups = Object.entries(counts).map(([id, count]) => ({
+    id,
+    label: id.charAt(0).toUpperCase() + id.slice(1),
+    count,
+  }));
+  res.json(groups);
+});
+
+/* ─── QR code image endpoint ─── */
+app.get('/qr', async (req, res) => {
+  const url = req.query.url;
+  if (!url) return res.status(400).send('Missing url param');
+  try {
+    const dataUrl = await QRCode.toDataURL(url, { width: 200, margin: 1 });
+    const img = Buffer.from(dataUrl.split(',')[1], 'base64');
+    res.set('Content-Type', 'image/png');
+    res.send(img);
+  } catch (e) {
+    res.status(500).send('QR generation failed');
+  }
+});
 
 /* ─── room store ─── */
 const rooms = new Map();
@@ -101,6 +140,21 @@ io.on('connection', (socket) => {
     room.submitHiLo(socket.data.playerId, prediction);
   });
 
+  socket.on('choose-team', (teamNum) => {
+    const room = playerRoom(socket); if (!room) return;
+    room.chooseTeam(socket.data.playerId, teamNum);
+  });
+
+  socket.on('reveal-word', (wordIndex) => {
+    const room = playerRoom(socket); if (!room) return;
+    room.revealWord(socket.data.playerId, wordIndex);
+  });
+
+  socket.on('submit-nutshell-guess', (guess) => {
+    const room = playerRoom(socket); if (!room) return;
+    room.submitNutshellGuess(socket.data.playerId, guess);
+  });
+
   /* ── disconnect ── */
 
   socket.on('disconnect', () => {
@@ -135,8 +189,11 @@ io.on('connection', (socket) => {
 });
 
 /* ─── start ─── */
-server.listen(PORT, () => {
+server.listen(PORT, '0.0.0.0', () => {
+  const nets = require('os').networkInterfaces();
+  const lanIP = Object.values(nets).flat().find(i => i.family === 'IPv4' && !i.internal)?.address || 'localhost';
   console.log(`\n🎮  Top Match — Jackbox-style party game`);
   console.log(`   Host a game  →  http://localhost:${PORT}/host.html`);
-  console.log(`   Join a game  →  http://localhost:${PORT}\n`);
+  console.log(`   Join a game  →  http://localhost:${PORT}`);
+  console.log(`   Network      →  http://${lanIP}:${PORT}\n`);
 });

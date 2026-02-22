@@ -10,24 +10,45 @@
 <div class="host-bg" id="app">
 
   <!-- ═══ LOBBY ═══ -->
-  <div class="screen active" id="screen-lobby">
+  <div class="screen active" id="screen-lobby" style="justify-content:flex-start;padding-top:3vh;">
     <p class="join-url" id="join-url"></p>
-    <p class="text-dim mb-1">Enter this code to join:</p>
+    <div id="qr-container" style="margin:0.8rem auto;background:#fff;padding:10px;border-radius:12px;display:inline-block;">
+      <img id="qr-img" alt="QR Code" style="width:180px;height:180px;display:block;" />
+    </div>
+    <p class="text-dim" style="margin-top:0.3rem;font-size:0.85rem;">Scan to join or enter the code:</p>
     <div class="room-code-display" id="room-code">····</div>
 
     <div id="player-list" class="player-list"></div>
+
+    <!-- Team display for nutshell mode -->
+    <div id="team-display" class="team-display" style="display:none;">
+      <div class="team-col team-red-col">
+        <h3>🔴 Team Red</h3>
+        <div id="team-1-list" class="team-member-list"></div>
+      </div>
+      <div class="team-col team-blue-col">
+        <h3>🔵 Team Blue</h3>
+        <div id="team-2-list" class="team-member-list"></div>
+      </div>
+      <div id="team-unassigned" class="team-unassigned" style="display:none;">
+        <span class="text-dim">Unassigned: </span><span id="team-unassigned-names"></span>
+      </div>
+    </div>
 
     <p class="text-dim mt-2" id="player-count">Waiting for players…</p>
 
     <!-- settings -->
     <div class="card mt-3" style="max-width:440px;width:100%">
       <div class="settings-row">
-        <label>Rounds</label>
-        <select id="set-rounds">
-          <option value="3">3</option><option value="4">4</option><option value="5">5</option>
-          <option value="6" selected>6</option><option value="7">7</option><option value="8">8</option>
-          <option value="9">9</option><option value="10">10</option>
+        <label>Game Mode</label>
+        <select id="set-gamemode">
+          <option value="topmatch">🎯 Top Match</option>
+          <option value="nutshell">🥜 In a Nutshell</option>
         </select>
+      </div>
+      <div class="settings-row">
+        <label>Rounds</label>
+        <input type="number" id="set-rounds" min="1" max="100" value="6" style="width:70px;text-align:center;" />
       </div>
       <div class="settings-row">
         <label>Answer time</label>
@@ -36,11 +57,17 @@
           <option value="20" selected>20 s</option><option value="30">30 s</option>
         </select>
       </div>
-      <div class="settings-row">
+      <div class="settings-row" id="hilo-setting-row">
         <label class="toggle"><input type="checkbox" id="set-hilo" checked /> Hi / Lo bonus round</label>
       </div>
       <div class="settings-row">
         <label class="toggle"><input type="checkbox" id="set-filter" checked /> Family-friendly filter</label>
+      </div>
+
+      <!-- Category Groups -->
+      <div id="category-groups-section" style="margin-top:1rem;border-top:1px solid rgba(255,255,255,.1);padding-top:.8rem;">
+        <label style="font-weight:700;margin-bottom:.5rem;display:block;">📂 Categories</label>
+        <div id="category-groups" style="display:grid;grid-template-columns:1fr 1fr;gap:.4rem .8rem;"></div>
       </div>
     </div>
 
@@ -68,6 +95,47 @@
     <div class="category-display" style="font-size:2rem;">⬆️ HI or LO? ⬇️</div>
     <p class="mt-2 text-dim">Players are predicting…</p>
     <div class="timer-ring" id="hilo-timer">--</div>
+  </div>
+
+  <!-- ═══ NUTSHELL: CARD TABLE ═══ -->
+  <div class="screen" id="screen-nutshell-board" style="justify-content:flex-start;padding-top:1.5vh;overflow-y:auto;">
+    <div class="card-table-header">
+      <p class="text-dim" id="nutshell-round-label" style="margin:0;"></p>
+      <div class="nutshell-category-badge" id="nutshell-category">🥜 Category</div>
+    </div>
+    <div class="card-table-status">
+      <div class="nutshell-turn-banner" id="nutshell-turn-banner">
+        <span class="turn-icon">🃏</span> <span id="nutshell-turn-team">Team 🔴</span>'s turn
+      </div>
+      <div class="card-table-meta">
+        <div class="nutshell-points-display">Pot: <span id="nutshell-points-value">1000</span> pts</div>
+        <div class="timer-ring nutshell-timer-ring" id="nutshell-turn-timer">30</div>
+      </div>
+    </div>
+    <div class="card-table-felt">
+      <div class="nutshell-board" id="nutshell-board"></div>
+    </div>
+    <div class="card-table-footer">
+      <div class="nutshell-team-scores" id="nutshell-team-scores">
+        <div class="ts-team ts-red"><span class="ts-icon">🔴</span> Team Red <span class="ts-pts" id="ns-team1-score">0</span></div>
+        <div class="ts-vs">VS</div>
+        <div class="ts-team ts-blue"><span class="ts-icon">🔵</span> Team Blue <span class="ts-pts" id="ns-team2-score">0</span></div>
+      </div>
+      <div class="nutshell-activity-log" id="nutshell-activity-log"></div>
+    </div>
+  </div>
+
+  <!-- ═══ NUTSHELL RESULTS ═══ -->
+  <div class="screen" id="screen-nutshell-results" style="overflow-y:auto;justify-content:flex-start;padding-top:3vh;">
+    <h2 class="mb-1" id="nutshell-results-label"></h2>
+    <div class="nutshell-answer-reveal" id="nutshell-answer-reveal"></div>
+    <div class="nutshell-results-question" id="nutshell-results-question"></div>
+    <div class="nutshell-winner-banner" id="nutshell-winner-banner"></div>
+    <div class="nutshell-team-scoreboard" id="nutshell-team-scoreboard"></div>
+    <div class="scoreboard mt-2" id="nutshell-scoreboard"></div>
+    <div class="host-controls" style="position:relative;margin-top:1.5rem;">
+      <button class="btn btn-gold btn-lg" id="btn-nutshell-next">NEXT ROUND ▸</button>
+    </div>
   </div>
 
   <!-- ═══ REVEAL ═══ -->

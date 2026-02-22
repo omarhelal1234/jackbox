@@ -26,6 +26,15 @@
     <div style="font-size:3rem;margin-bottom:1rem;">✅</div>
     <h2>You're in!</h2>
     <p class="text-dim mt-1">Waiting for the host to start the game…</p>
+    <!-- Team selection (shown only for nutshell mode) -->
+    <div id="team-select-area" class="team-select-area hidden">
+      <h3 style="margin-top:1.5rem;">Choose Your Team</h3>
+      <div class="team-buttons">
+        <button class="team-btn team-red-btn" id="btn-team-1">🔴<br/>Team Red</button>
+        <button class="team-btn team-blue-btn" id="btn-team-2">🔵<br/>Team Blue</button>
+      </div>
+      <p class="text-dim mt-1" id="team-status"></p>
+    </div>
   </div>
 
   <!-- ═══ GAME STARTING ═══ -->
@@ -69,6 +78,68 @@
     <div class="check-icon">✓</div>
     <h2 id="hilo-choice-text">Locked In!</h2>
     <p class="text-dim mt-1">Waiting for reveal…</p>
+  </div>
+
+  <!-- ═══ NUTSHELL: YOUR TEAM'S TURN ═══ -->
+  <div class="player-body hidden" id="screen-nutshell-turn" style="overflow-y:auto;padding-bottom:2rem;">
+    <p class="player-round-info" id="p-nutshell-round"></p>
+    <div class="nutshell-category-badge" id="p-nutshell-category">🥜 Category</div>
+    <div class="player-timer" id="p-nutshell-timer">30</div>
+    <h2 class="turn-label" id="p-nutshell-turn-label">🃏 YOUR TURN!</h2>
+    <div class="nutshell-clue-text" id="p-nutshell-clue"></div>
+    <div class="nutshell-player-pts">Pot: <span id="p-nutshell-pts">1000</span> pts</div>
+    <!-- Action choice -->
+    <div id="nutshell-choice-btns" class="nutshell-action-choice">
+      <button class="btn btn-lg btn-pull-card" id="btn-reveal-mode">🃏 PULL A CARD</button>
+      <button class="btn btn-lg btn-guess-mode" id="btn-guess-mode">💡 GUESS ANSWER</button>
+    </div>
+    <!-- Card deck (for picking which card to pull) -->
+    <div id="nutshell-word-grid" class="player-card-deck hidden">
+      <p class="deck-label">Tap a card to pull it!</p>
+      <div id="card-deck-grid" class="card-deck-grid"></div>
+      <button class="btn btn-outline mt-1" id="btn-back-from-cards">← Back</button>
+    </div>
+    <!-- Guess area -->
+    <div id="nutshell-guess-area" class="nutshell-guess-area hidden">
+      <form id="nutshell-guess-form" autocomplete="off">
+        <input class="answer-input" id="nutshell-guess-input" type="text"
+               placeholder="What's the answer?" maxlength="80" required />
+        <button type="submit" class="btn btn-secondary btn-block btn-lg" id="nutshell-guess-btn">GUESS!</button>
+      </form>
+      <p class="nutshell-feedback" id="nutshell-feedback" style="display:none;"></p>
+      <button class="btn btn-outline mt-1" id="btn-back-to-choice">← Back</button>
+    </div>
+  </div>
+
+  <!-- ═══ NUTSHELL: WAITING FOR OTHER TEAM ═══ -->
+  <div class="player-body hidden" id="screen-nutshell-waiting">
+    <p class="player-round-info" id="p-nutshell-wait-round"></p>
+    <div class="nutshell-category-badge" id="p-nutshell-wait-category">🥜</div>
+    <div class="pulse" style="font-size:2rem;margin:1rem 0;">⏳</div>
+    <h2 id="p-nutshell-wait-text">Other team is playing...</h2>
+    <div class="nutshell-clue-text" id="p-nutshell-wait-clue"></div>
+    <div class="nutshell-player-pts">Worth <span id="p-nutshell-wait-pts">1000</span> pts</div>
+  </div>
+
+  <!-- ═══ NUTSHELL CORRECT ═══ -->
+  <div class="player-body hidden" id="screen-nutshell-correct">
+    <div class="check-icon" style="font-size:4rem;">🎉</div>
+    <h2>Your Team Got It!</h2>
+    <p class="text-success mt-1" id="nutshell-correct-answer"></p>
+    <p class="nutshell-earned-pts" id="nutshell-earned-pts">+1000</p>
+    <p class="text-dim mt-1">Waiting for next round…</p>
+  </div>
+
+  <!-- ═══ NUTSHELL PLAYER RESULTS ═══ -->
+  <div class="player-body hidden" id="screen-nutshell-player-results">
+    <div class="result-card" id="nutshell-result-card">
+      <p class="text-dim">The answer was</p>
+      <p class="result-answer" id="nutshell-res-answer" style="font-size:1.6rem;font-weight:800;">—</p>
+      <p class="result-rank" id="nutshell-res-status"></p>
+      <p class="result-points" id="nutshell-res-points">0</p>
+      <hr style="border-color:rgba(255,255,255,.1);margin:.8rem 0" />
+      <p class="result-total" id="nutshell-res-total"></p>
+    </div>
   </div>
 
   <!-- ═══ ROUND RESULTS ═══ -->

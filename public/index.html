@@ -55,6 +55,13 @@
     const nameI = document.getElementById('name-input');
     const toast = document.getElementById('error-toast');
 
+    // auto-fill room code from URL (e.g. scanned QR)
+    const urlCode = new URLSearchParams(window.location.search).get('code');
+    if (urlCode) {
+      codeI.value = urlCode.toUpperCase().replace(/[^A-Z0-9]/g,'').substring(0, 4);
+      nameI.focus();
+    }
+
     // force uppercase for code
     codeI.addEventListener('input', () => { codeI.value = codeI.value.toUpperCase().replace(/[^A-Z0-9]/g,''); });
 
