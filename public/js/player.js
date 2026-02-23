@@ -262,7 +262,7 @@
       resetNutshellActions();
       showScreen('screen-nutshell-turn');
     } else {
-      const teamName = data.teamTurn === 1 ? 'Team Red 🔴' : 'Team Blue 🔵';
+      const teamName = TEAM_NAMES[data.teamTurn] || 'Other Team';
       $('p-nutshell-wait-round').textContent = roundLabel;
       $('p-nutshell-wait-category').textContent = catLabel;
       $('p-nutshell-wait-text').textContent = `${teamName} is playing...`;
@@ -383,16 +383,12 @@
   });
 
   // Team selection
-  $('btn-team-1').addEventListener('click', () => {
-    socket.emit('choose-team', 1);
-    myTeam = 1;
-    updateTeamStatus();
-  });
-
-  $('btn-team-2').addEventListener('click', () => {
-    socket.emit('choose-team', 2);
-    myTeam = 2;
-    updateTeamStatus();
+  [1, 2, 3].forEach(t => {
+    $(`btn-team-${t}`).addEventListener('click', () => {
+      socket.emit('choose-team', t);
+      myTeam = t;
+      updateTeamStatus();
+    });
   });
 
   // Nutshell turn actions
@@ -435,18 +431,17 @@
     }
   }
 
+  const TEAM_NAMES = { 1: 'Team Red 🔴', 2: 'Team Blue 🔵', 3: 'Team Green 🟢' };
+
   function updateTeamStatus() {
     const status = $('team-status');
-    const btn1 = $('btn-team-1');
-    const btn2 = $('btn-team-2');
     if (!status) return;
 
-    btn1.classList.toggle('selected', myTeam === 1);
-    btn2.classList.toggle('selected', myTeam === 2);
+    [1, 2, 3].forEach(t => {
+      $(`btn-team-${t}`).classList.toggle('selected', myTeam === t);
+    });
 
-    if (myTeam === 1) status.textContent = 'You are on Team Red 🔴';
-    else if (myTeam === 2) status.textContent = 'You are on Team Blue 🔵';
-    else status.textContent = 'Pick a team to play!';
+    status.textContent = TEAM_NAMES[myTeam] ? `You are on ${TEAM_NAMES[myTeam]}` : 'Pick a team to play!';
   }
 
   function updatePlayerClue() {

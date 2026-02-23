@@ -229,8 +229,14 @@
 
   /* ── nutshell board game events ── */
 
+  const TEAM_INFO = {
+    1: { emoji: '🔴', name: 'Team Red',   css: 'red' },
+    2: { emoji: '🔵', name: 'Team Blue',  css: 'blue' },
+    3: { emoji: '🟢', name: 'Team Green', css: 'green' },
+  };
+
   let nutshellBoardData = { totalWords: 0, revealedIndices: [], revealedWords: {} };
-  let currentTeams = { team1: [], team2: [], unassigned: [] };
+  let currentTeams = { team1: [], team2: [], team3: [], unassigned: [] };
 
   socket.on('nutshell-round-start', (data) => {
     currentRound = data.round;
@@ -259,10 +265,9 @@
     nutshellBoardData.revealedWords = data.revealedWords;
     nutshellBoardData.totalWords = data.totalWords;
 
-    const teamEmoji = data.teamTurn === 1 ? '🔴' : '🔵';
-    const teamName = data.teamTurn === 1 ? 'Team Red' : 'Team Blue';
-    $('nutshell-turn-team').textContent = `${teamEmoji} ${teamName}`;
-    $('nutshell-turn-banner').className = `nutshell-turn-banner team-${data.teamTurn === 1 ? 'red' : 'blue'}-bg`;
+    const ti = TEAM_INFO[data.teamTurn] || TEAM_INFO[1];
+    $('nutshell-turn-team').textContent = `${ti.emoji} ${ti.name}`;
+    $('nutshell-turn-banner').className = `nutshell-turn-banner team-${ti.css}-bg`;
     $('nutshell-points-value').textContent = data.pointsAvailable;
     $('nutshell-turn-timer').textContent = '30';
     $('nutshell-turn-timer').classList.remove('urgent');
@@ -275,25 +280,25 @@
     $('nutshell-points-value').textContent = data.pointsAvailable;
     renderNutshellBoard(data.wordIndex);
 
-    const teamLabel = data.revealedByTeam === 1 ? '🔴' : '🔵';
+    const teamLabel = (TEAM_INFO[data.revealedByTeam] || TEAM_INFO[1]).emoji;
     addActivityLog(`${teamLabel} ${esc(data.revealedByName)} pulled card #${data.wordIndex + 1}: "${esc(data.word)}"`);
     audio.reveal();
   });
 
   socket.on('nutshell-wrong-guess', (data) => {
-    const teamLabel = data.team === 1 ? '🔴' : '🔵';
+    const teamLabel = (TEAM_INFO[data.team] || TEAM_INFO[1]).emoji;
     addActivityLog(`${teamLabel} ${esc(data.playerName)} guessed wrong! Turn passes.`, 'wrong');
     audio.noMatch();
   });
 
   socket.on('nutshell-correct-guess', (data) => {
-    const teamLabel = data.team === 1 ? '🔴' : '🔵';
+    const teamLabel = (TEAM_INFO[data.team] || TEAM_INFO[1]).emoji;
     addActivityLog(`${teamLabel} ${esc(data.playerName)} guessed correctly! +${data.points} pts`, 'correct');
     audio.matchFound();
   });
 
   socket.on('nutshell-turn-timeout', (data) => {
-    const teamLabel = data.team === 1 ? '🔴' : '🔵';
+    const teamLabel = (TEAM_INFO[data.team] || TEAM_INFO[1]).emoji;
     addActivityLog(`${teamLabel} Time's up! Turn passes.`, 'timeout');
   });
 
@@ -305,21 +310,21 @@
     // Winner banner
     const wb = $('nutshell-winner-banner');
     if (data.winningTeam) {
-      const teamEmoji = data.winningTeam === 1 ? '🔴' : '🔵';
-      const teamName = data.winningTeam === 1 ? 'Team Red' : 'Team Blue';
-      wb.innerHTML = `${teamEmoji} ${teamName} wins! <span class="winner-pts">+${data.points} pts</span><br/><small>Guessed by ${esc(data.guessedBy)} with ${data.revealedCount}/${data.totalWords} cards pulled</small>`;
-      wb.className = `nutshell-winner-banner team-${data.winningTeam === 1 ? 'red' : 'blue'}-bg`;
+      const wt = TEAM_INFO[data.winningTeam] || TEAM_INFO[1];
+      wb.innerHTML = `${wt.emoji} ${wt.name} wins! <span class="winner-pts">+${data.points} pts</span><br/><small>Guessed by ${esc(data.guessedBy)} with ${data.revealedCount}/${data.totalWords} cards pulled</small>`;
+      wb.className = `nutshell-winner-banner team-${wt.css}-bg`;
     } else {
       wb.innerHTML = 'No team guessed correctly!';
       wb.className = 'nutshell-winner-banner';
     }
 
-    // Team scoreboard
+    // Team scoreboard — show only active teams
+    const activeT = data.activeTeams || [1, 2];
     const tsb = $('nutshell-team-scoreboard');
-    tsb.innerHTML = `
-      <div class="ts-result-row"><span class="ts-label">🔴 Team Red</span><span class="ts-score">${(data.teamScores?.team1 || 0).toLocaleString()}</span></div>
-      <div class="ts-result-row"><span class="ts-label">🔵 Team Blue</span><span class="ts-score">${(data.teamScores?.team2 || 0).toLocaleString()}</span></div>
-    `;
+    tsb.innerHTML = activeT.map(t => {
+      const ti = TEAM_INFO[t];
+      return `<div class="ts-result-row"><span class="ts-label">${ti.emoji} ${ti.name}</span><span class="ts-score">${(data.teamScores?.[`team${t}`] || 0).toLocaleString()}</span></div>`;
+    }).join('');
 
     $('btn-nutshell-next').textContent = data.isLastRound ? 'SHOW WINNER 🏆' : 'NEXT ROUND ▸';
 
@@ -617,16 +622,14 @@
   }
 
   function updateTeamScores() {
-    // Calculate from players array
-    let t1 = 0, t2 = 0;
+    const totals = { 1: 0, 2: 0, 3: 0 };
     for (const p of players) {
-      if (p.team === 1) t1 += p.score || 0;
-      if (p.team === 2) t2 += p.score || 0;
+      if (p.team >= 1 && p.team <= 3) totals[p.team] += p.score || 0;
     }
-    const el1 = $('ns-team1-score');
-    const el2 = $('ns-team2-score');
-    if (el1) el1.textContent = t1.toLocaleString();
-    if (el2) el2.textContent = t2.toLocaleString();
+    for (let t = 1; t <= 3; t++) {
+      const el = $(`ns-team${t}-score`);
+      if (el) el.textContent = totals[t].toLocaleString();
+    }
   }
 
   function addActivityLog(msg, type) {
@@ -645,26 +648,17 @@
      ══════════════════ */
 
   function renderTeamDisplay(teams) {
-    const t1 = $('team-1-list');
-    const t2 = $('team-2-list');
-    if (!t1 || !t2) return;
-
-    t1.innerHTML = '';
-    t2.innerHTML = '';
-
-    (teams.team1 || []).forEach(p => {
-      const tag = document.createElement('div');
-      tag.className = 'team-member';
-      tag.innerHTML = `<span class="dot" style="background:${p.color}">${p.name.charAt(0).toUpperCase()}</span> ${esc(p.name)}`;
-      t1.appendChild(tag);
-    });
-
-    (teams.team2 || []).forEach(p => {
-      const tag = document.createElement('div');
-      tag.className = 'team-member';
-      tag.innerHTML = `<span class="dot" style="background:${p.color}">${p.name.charAt(0).toUpperCase()}</span> ${esc(p.name)}`;
-      t2.appendChild(tag);
-    });
+    for (let t = 1; t <= 3; t++) {
+      const list = $(`team-${t}-list`);
+      if (!list) continue;
+      list.innerHTML = '';
+      (teams[`team${t}`] || []).forEach(p => {
+        const tag = document.createElement('div');
+        tag.className = 'team-member';
+        tag.innerHTML = `<span class="dot" style="background:${p.color}">${p.name.charAt(0).toUpperCase()}</span> ${esc(p.name)}`;
+        list.appendChild(tag);
+      });
+    }
 
     const ua = $('team-unassigned');
     const uaNames = $('team-unassigned-names');

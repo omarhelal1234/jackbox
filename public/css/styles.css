@@ -29,7 +29,8 @@ html, body {
   font-family: var(--font);
   background: var(--bg-deep);
   color: var(--text);
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 /* ── utility ── */
@@ -349,6 +350,8 @@ html, body {
   flex: 1; display: flex; flex-direction: column;
   align-items: center; justify-content: center;
   padding: 1.5rem; text-align: center;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .player-category {
@@ -543,6 +546,12 @@ html, body {
   color: #74b9ff;
   box-shadow: 0 0 20px rgba(52,152,219,.15);
 }
+.nutshell-turn-banner.team-green-bg {
+  background: linear-gradient(135deg, rgba(46,204,113,.25), rgba(46,204,113,.1));
+  border: 2px solid rgba(46,204,113,.5);
+  color: #55efc4;
+  box-shadow: 0 0 20px rgba(46,204,113,.15);
+}
 
 /* ── Timer ── */
 .nutshell-timer-ring {
@@ -687,6 +696,11 @@ html, body {
   color: #74b9ff;
   border: 1px solid rgba(52,152,219,.3);
 }
+.ts-green {
+  background: rgba(46,204,113,.12);
+  color: #55efc4;
+  border: 1px solid rgba(46,204,113,.3);
+}
 
 /* ── Activity Log ── */
 .nutshell-activity-log {
@@ -723,8 +737,8 @@ html, body {
 
 /* ── Team Display (Lobby) ── */
 .team-display {
-  width: 100%; max-width: 440px;
-  display: grid; grid-template-columns: 1fr 1fr;
+  width: 100%; max-width: 660px;
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
   gap: .8rem;
   margin-top: .5rem;
 }
@@ -740,6 +754,10 @@ html, body {
 .team-blue-col {
   background: rgba(52,152,219,.08);
   border: 2px solid rgba(52,152,219,.25);
+}
+.team-green-col {
+  background: rgba(46,204,113,.08);
+  border: 2px solid rgba(46,204,113,.25);
 }
 .team-member-list {
   display: flex; flex-direction: column; gap: .3rem;
@@ -786,6 +804,11 @@ html, body {
   background: rgba(52,152,219,.25);
   border-color: #3498db;
   box-shadow: 0 0 15px rgba(52,152,219,.3);
+}
+.team-green-btn:hover, .team-green-btn.selected {
+  background: rgba(46,204,113,.25);
+  border-color: #2ecc71;
+  box-shadow: 0 0 15px rgba(46,204,113,.3);
 }
 
 /* ═══════════════════════════
@@ -939,6 +962,10 @@ html, body {
 .nutshell-winner-banner.team-blue-bg {
   background: linear-gradient(135deg, rgba(52,152,219,.18), rgba(52,152,219,.05));
   border-color: rgba(52,152,219,.4);
+}
+.nutshell-winner-banner.team-green-bg {
+  background: linear-gradient(135deg, rgba(46,204,113,.18), rgba(46,204,113,.05));
+  border-color: rgba(46,204,113,.4);
 }
 .winner-pts { color: var(--gold); font-size: 1.3rem; }
 

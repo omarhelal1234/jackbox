@@ -163,12 +163,12 @@ class Room {
     this.emit('player-left', { playerId, name: p.name, playerCount: this.getPlayerCount() });
     if (this.state === 'round-active')       this._checkAllSubmitted();
     if (this.state === 'hilo-phase')          this._checkAllHiLo();
-    if (this.state === 'nutshell-active') {
+    if (this.state === 'nutshell-active' && this.activeTeams) {
       // If current team has no connected players, pass turn
       const teamPlayers = this._connected().filter(x => x.team === this.currentTeamTurn);
       if (teamPlayers.length === 0) {
         this.clearTimer();
-        this.currentTeamTurn = this.currentTeamTurn === 1 ? 2 : 1;
+        this.currentTeamTurn = this._nextTeamTurn();
         setTimeout(() => this._startNutshellTurn(), 1000);
       }
     }
@@ -444,6 +444,7 @@ class Room {
     this.nutshellQuestion = null;
     this.revealedIndices = new Set();
     this.currentTeamTurn = 1;
+    this.activeTeams = [1, 2];
     this.clearTimer();
     for (const p of this.players.values()) {
       p.score = 0; p.hasSubmitted = false; p.hasChosenHiLo = false;
@@ -462,29 +463,32 @@ class Room {
     if (this.state !== 'lobby') return;
     const p = this.players.get(playerId);
     if (!p) return;
-    if (teamNum !== 1 && teamNum !== 2) return;
+    if (![1, 2, 3].includes(teamNum)) return;
     p.team = teamNum;
     this.io.to(p.socketId).emit('team-chosen', { team: teamNum });
     this.emit('teams-updated', this._getTeams());
   }
 
   _getTeams() {
-    const team1 = [], team2 = [], unassigned = [];
+    const team1 = [], team2 = [], team3 = [], unassigned = [];
     for (const p of this.players.values()) {
       if (!p.connected) continue;
       const pub = this._pub(p);
       if (p.team === 1) team1.push(pub);
       else if (p.team === 2) team2.push(pub);
+      else if (p.team === 3) team3.push(pub);
       else unassigned.push(pub);
     }
-    return { team1, team2, unassigned };
+    return { team1, team2, team3, unassigned };
   }
 
   _startNutshellGame() {
     const teams = this._getTeams();
-    if (teams.team1.length === 0 || teams.team2.length === 0) {
-      throw new Error('Both teams need at least 1 player!');
+    const activeTeams = [1, 2, 3].filter(t => teams[`team${t}`].length > 0);
+    if (activeTeams.length < 2) {
+      throw new Error('At least 2 teams need players!');
     }
+    this.activeTeams = activeTeams;
 
     const shuffled = [...nutshellPrompts].sort(() => Math.random() - 0.5);
     if (shuffled.length < this.totalRounds) throw new Error('Not enough questions.');
@@ -507,7 +511,7 @@ class Room {
     this.nutshellQuestion = this.selectedCategories[this.currentRound - 1];
     this.nutshellWords = this.nutshellQuestion.question.split(/\s+/);
     this.revealedIndices = new Set();
-    this.currentTeamTurn = ((this.currentRound - 1) % 2) + 1; // alternate starting team
+    this.currentTeamTurn = this.activeTeams[(this.currentRound - 1) % this.activeTeams.length];
     this.clearTimer();
 
     this.state = 'nutshell-active';
@@ -523,18 +527,25 @@ class Room {
     setTimeout(() => this._startNutshellTurn(), 2500);
   }
 
+  _nextTeamTurn() {
+    const idx = this.activeTeams.indexOf(this.currentTeamTurn);
+    return this.activeTeams[(idx + 1) % this.activeTeams.length];
+  }
+
   _startNutshellTurn() {
     if (this.state !== 'nutshell-active') return;
 
-    // Check if current team has connected players, skip if not
-    const teamPlayers = this._connected().filter(p => p.team === this.currentTeamTurn);
-    if (teamPlayers.length === 0) {
-      this.currentTeamTurn = this.currentTeamTurn === 1 ? 2 : 1;
-      const other = this._connected().filter(p => p.team === this.currentTeamTurn);
-      if (other.length === 0) {
-        this._endNutshellRound(null, 0, null);
-        return;
-      }
+    // Check if current team has connected players, cycle to find one
+    let attempts = 0;
+    while (attempts < this.activeTeams.length) {
+      const teamPlayers = this._connected().filter(p => p.team === this.currentTeamTurn);
+      if (teamPlayers.length > 0) break;
+      this.currentTeamTurn = this._nextTeamTurn();
+      attempts++;
+    }
+    if (attempts >= this.activeTeams.length) {
+      this._endNutshellRound(null, 0, null);
+      return;
     }
 
     const totalWords = this.nutshellWords.length;
@@ -553,7 +564,7 @@ class Room {
     // Turn timer: 30 seconds
     this._startTimer(30, () => {
       this.emit('nutshell-turn-timeout', { team: this.currentTeamTurn });
-      this.currentTeamTurn = this.currentTeamTurn === 1 ? 2 : 1;
+      this.currentTeamTurn = this._nextTeamTurn();
       setTimeout(() => this._startNutshellTurn(), 1500);
     });
   }
@@ -599,8 +610,8 @@ class Room {
       allRevealed:     revealedCount >= totalWords,
     });
 
-    // Pass turn to other team
-    this.currentTeamTurn = this.currentTeamTurn === 1 ? 2 : 1;
+    // Pass turn to next team
+    this.currentTeamTurn = this._nextTeamTurn();
     setTimeout(() => this._startNutshellTurn(), 1500);
   }
 
@@ -661,7 +672,7 @@ class Room {
       });
 
       // Pass turn
-      this.currentTeamTurn = this.currentTeamTurn === 1 ? 2 : 1;
+      this.currentTeamTurn = this._nextTeamTurn();
       setTimeout(() => this._startNutshellTurn(), 2000);
     }
   }
@@ -714,11 +725,12 @@ class Room {
     playerResults.sort((a, b) => b.totalScore - a.totalScore);
 
     // Team totals
-    let team1Total = 0, team2Total = 0;
+    let team1Total = 0, team2Total = 0, team3Total = 0;
     for (const p of this.players.values()) {
       if (!p.connected) continue;
       if (p.team === 1) team1Total += p.score;
       if (p.team === 2) team2Total += p.score;
+      if (p.team === 3) team3Total += p.score;
     }
 
     const results = {
@@ -734,7 +746,8 @@ class Room {
       guessedBy,
       playerResults,
       scores:       this._scoreboard(),
-      teamScores:   { team1: team1Total, team2: team2Total },
+      teamScores:   { team1: team1Total, team2: team2Total, team3: team3Total },
+      activeTeams:  this.activeTeams || [1, 2],
       isLastRound:  this.currentRound >= this.totalRounds,
     };
 
